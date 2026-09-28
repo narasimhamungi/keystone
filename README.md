@@ -48,3 +48,5 @@ A live run needs `CREDITRISKLAB_SEC_UA` and `TRELLIS_USER_AGENT` set (e.g. in `.
 - **The credit model is small** (15 issuers, 10 defaults). Its PD is reported with a domain screen and sensitivity range, not as a validated forecast.
 - **Market data is cited, dated snapshots**, recorded in every manifest, not a live feed: results must be traceable to the prices used and reproducible.
 - **Out of the automated core by design:** sum-of-the-parts, market-implied residuals, catalysts, deal analysis and investment ratings. Each needs hand-sourced, per-company research.
+
+Every design decision, and each upstream bug building Keystone exposed, is logged in [`docs/DECISIONS.md`](docs/DECISIONS.md).
