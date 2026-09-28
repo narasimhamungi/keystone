@@ -1,0 +1,26 @@
+name: Live run
+
+# Manual only: a live run calls SEC EDGAR, so it is not triggered on every push.
+on: workflow_dispatch
+
+jobs:
+  run:
+    name: Live run + exact replay (J&J and CYH)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e .
+      - name: Run both subjects; each run replays itself from its cache and fails if anything differs
+        env:
+          CREDITRISKLAB_SEC_UA: ${{ secrets.CREDITRISKLAB_SEC_UA }}
+          TRELLIS_USER_AGENT: ${{ secrets.TRELLIS_USER_AGENT }}
+        run: |
+          python -m keystone run JNJ
+          python -m keystone run CYH
+      - uses: actions/upload-artifact@v4
+        with:
+          name: keystone-reports
+          path: keystone_out/*/report.md
