@@ -46,6 +46,7 @@ A live run needs `CREDITRISKLAB_SEC_UA` and `TRELLIS_USER_AGENT` set (e.g. in `.
 - **US SEC filers, non-financial companies only.** Banks and insurers are declined: debt is raw material for them, not leverage, and the ratio set CreditRiskLab is trained on does not apply.
 - **Adding a company means curating its inputs** — peers, CAPM inputs, sourced precedent deals and dated market data — in `keystone/subjects.py`. That is analyst judgement, not something Keystone generates.
 - **The credit model is small** (15 issuers, 10 defaults). Its PD is reported with a domain screen and sensitivity range, not as a validated forecast.
+- **The 2.0x spread gate is weak at small peer counts.** Max/min spread widens with sample size by construction; at four peers with pharma's dispersion, ValuationLab measured pure sampling exceeding 2.0x about 68% of the time. Both sample subjects sit under the 5-peer minimum (J&J 4, CYH 3), so comps are ruled out either way — but J&J's report prints the spread reason (3.0x), which should be read as "too few peers to judge", not as proof the peers are non-comparable. The same statistic gates precedents (J&J: 2.6x across deals).
 - **Market data is cited, dated snapshots**, recorded in every manifest, not a live feed: results must be traceable to the prices used and reproducible.
 - **Out of the automated core by design:** sum-of-the-parts, market-implied residuals, catalysts, deal analysis and investment ratings. Each needs hand-sourced, per-company research.
 
